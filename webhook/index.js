@@ -22,8 +22,7 @@ require('amqplib/callback_api').connect('amqp://localhost', (err, conn) => {
       return;
     }
 
-    ch.assertQueue('webhooks');
-    ch.consume('webhooks', (msg) => {
+    ch.consume('cocorico.queue.webhooks', (msg) => {
       msg.content = JSON.parse(msg.content.toString());
 
       // Delay messages already processed recently
@@ -72,7 +71,7 @@ require('amqplib/callback_api').connect('amqp://localhost', (err, conn) => {
             }
             msg.content.lastTriedAt = Date.now();
             // Requeue updated message
-            ch.sendToQueue('webhooks',
+            ch.sendToQueue('cocorico.queue.webhooks',
               new Buffer(JSON.stringify(msg.content)),
               { persistent : true }
             )

@@ -394,8 +394,7 @@ function triggerWebhook(ballot, status, callback) {
         },
         createdAt: Date.now(),
       };
-      ch.assertQueue('webhooks');
-      ch.sendToQueue('webhooks',
+      ch.sendToQueue('cocorico.queue.webhooks',
         new Buffer(JSON.stringify(msg)),
         { persistent : true }
       );
@@ -424,9 +423,7 @@ module.exports.run = function() {
           process.exit(1);
         }
 
-        ch.assertQueue('ballots');
-        ch.consume(
-          'ballots',
+        ch.consume('cocorico.queue.ballots',
           (msg) => {
             var msgObj = JSON.parse(msg.content.toString());
 
@@ -464,8 +461,7 @@ module.exports.run = function() {
                     return;
                   }
 
-                  ch.sendToQueue(
-                    'ballots',
+                  ch.sendToQueue('cocorico.queue.ballots',
                     new Buffer(JSON.stringify(msgObj)),
                     { persistent : true }
                   );

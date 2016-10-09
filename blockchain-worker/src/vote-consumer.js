@@ -137,9 +137,7 @@ require('amqplib/callback_api').connect(
 
         log.info('connected');
 
-        ch.assertQueue('votes');
-        ch.consume(
-          'votes',
+        ch.consume('cocorico.queue.votes',
           (msg) =>{
             if (msg !== null) {
               var obj = JSON.parse(msg.content.toString());

@@ -114,9 +114,7 @@ function pushVoteOnQueue(vote, callback) {
 
         var voteMsg = { vote : { id : vote.id } };
 
-        ch.assertQueue('votes');
-        ch.sendToQueue(
-          'votes',
+        ch.sendToQueue('cocorico.queue.votes',
           new Buffer(JSON.stringify(voteMsg)),
           { persistent : true }
         );

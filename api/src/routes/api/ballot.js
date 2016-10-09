@@ -53,9 +53,7 @@ function pushBallotMessageOnQueue(data, callback) {
 
           var ballotObj = { ballot : data };
 
-          ch.assertQueue('ballots');
-          ch.sendToQueue(
-            'ballots',
+          ch.sendToQueue('cocorico.queue.ballots',
             new Buffer(JSON.stringify(ballotObj)),
             { persistent : true }
           );
