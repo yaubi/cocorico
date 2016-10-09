@@ -29,3 +29,6 @@
   when: is_development_environment
   register: result
   changed_when: "'The following plugins have been enabled' in result.stdout"
+
+- name: Setup exchanges and queues
+  script: setup.py
