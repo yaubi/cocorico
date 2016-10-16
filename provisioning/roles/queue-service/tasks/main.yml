@@ -30,5 +30,8 @@
   register: result
   changed_when: "'The following plugins have been enabled' in result.stdout"
 
+- name: Wait for the admin web inteface to wake up
+  pause: seconds=3
+
 - name: Setup exchanges and queues
   script: setup.py

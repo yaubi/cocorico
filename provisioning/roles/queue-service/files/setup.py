@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 
 # Connect to RabbitMQ, both through HTTP and AMQP
 
-api = pyrabbit.api.Client('localhost:55672', 'guest', 'guest')
+api = pyrabbit.api.Client('localhost:15672', 'guest', 'guest')
 
 connection = pika.BlockingConnection()
 channel = connection.channel()
